@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!-- 1,普通配置包扫描
+         base-package: 指定ioc容器去哪些包查找注解
+         可以指定一个包或多个包 com.xxx.xxx,com.xxx.xx,...
+         指定某个包,相当于指定了该包及其子包的所有类
+
+     -->
+<!--    <context:component-scan base-package="com.shiguang.ioc_01"/>-->
+
+
+    <!-- 2.指定包,根据注解排除不需要的包 -->
+<!--    <context:component-scan base-package="com.shiguang" >-->
+<!--        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>-->
+<!--        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+<!--    </context:component-scan>-->
+
+    <!-- 3.指定包,指定包含注解 -->
+    <!--   注意： base-package 包下的所有子包都生效,使用 use-default-filters="false" 使其不生效-->
+    <context:component-scan base-package="com.shiguang" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+    </context:component-scan>
+
+
+</beans>

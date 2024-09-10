@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        Spring IOC 容器会在对应的时间节点回调对应的方法,我们可以在其中写对应的业务
+        init-method = ”初始化方法名“
+        destroy-method = “销毁方法名”
+    -->
+
+    <bean id="javaBean" class="com.shiguang.ioc_04.JavaBean" init-method="init" destroy-method="clear"/>
+
+    <!-- 声明一个组件信息,默认scope = "singleton",实例化出来的组件对象为单例,一个Bean对应一个BeanDefinition,对应一个组件对象 -->
+    <bean id = "javaBean2" class="com.shiguang.ioc_04.JavaBean2"/>
+
+    <!-- scope = "prototype"时实例化出来的组件对象为多例,getBean一次就创建一个组件对象 -->
+    <bean id = "javaBean3" class="com.shiguang.ioc_04.JavaBean3" scope="prototype" />
+</beans>

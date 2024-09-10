@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+  <modelVersion>4.0.0</modelVersion>  
+  <groupId>com.shiguang</groupId>  
+  <artifactId>maven-javaee-project-03</artifactId>  
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+
+  <!--声明版本-->
+<!--  <properties>-->
+<!--    &lt;!&ndash;提取版本号,方便统一管理&ndash;&gt;-->
+<!--    &lt;!&ndash;-->
+<!--          支持自定义标签,命名随意,相当于声明了一个变量,在其他位置可以用${junit.version} 引用-->
+<!--          注意：声明的标签建议两层或以上命名,否则可能和Maven系统自带的变量冲突,推荐：技术名.version-->
+<!--      &ndash;&gt;-->
+<!--    <junit.version>4.11</junit.version>-->
+<!--    &lt;!&ndash; 也可以通过 maven规定的固定的key，配置maven的参数！如下配置编码格式！&ndash;&gt;-->
+<!--    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+<!--    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
+<!--  </properties>-->
+
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.17.2</version>
+    </dependency>
+  </dependencies>
+
+
+</project>

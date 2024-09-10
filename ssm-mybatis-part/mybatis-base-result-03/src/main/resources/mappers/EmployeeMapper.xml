@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiguang.mapper.EmployeeMapper">
+
+
+    <!--
+      如果是DML (插入,修改,删除) int / long
+
+      场景1: 返回单个简单类型, resultType = 返回值类型
+              resultType语法:
+                 1. 类的全限定符号
+                 2. 别名简称
+                     mybatis提供了72种常用的java数据类型的别名
+                        基本数据类型 int _int ,double _double, ...
+                        包装数据类型 Integer int,Double double,...
+                        集合容器类型 Map map,List list,...
+                    没有提供别名的需要自己自定义或者写类的全限定符
+                如何给类定义别名: 在 typeAliases 标签下声明
+                    1. 单独定义: <typeAlias type="com.shiguang.pojo.Employee" alias="emp"/>
+                    2. 批量定义: <package name="com.shiguang.pojo"/>
+                           若在批量定义的基础上想单独给个别包起别名,可以使用 @Alias 注解指定 @Alias("emp")
+       场景2: 返回单个自定义类型 resultType = "类全限定符 | 别名"
+
+       实体类属性映射:
+            默认要求:查询时返回单个实体类型,要求列名与属性名一致
+            设置驼峰映射:  <setting name="mapUnderscoreToCamelCase" value="true"/>  emp_name -> empName
+
+       场景3: 当没有实体类可以映射时, 可以返回 map, key -> 列, value -> 值
+
+       场景4: 返回集合类型 list
+             返回集合时,resultType不需要指定集合类型,只需要指定泛型即可 List<employee> -> employee
+
+       场景5: 主键回显 获取插入数据的主键
+            1. 自增长主键回显  auto_increment
+                   useGeneratedKeys="true" keyColumn="emp_id" keyProperty="empId"
+            2. 非自动增长主键 插入之前,先指定一段sql,生成主键值
+                <selectKey order="BEFORE"  resultType="string" keyProperty="tId">
+                    SELECT REPLACE(UUID(),"-","")
+                </selectKey>
+
+                 order : before | after 在插入语句之前执行还是之后执行
+                 resultType = 返回值类型
+                 keyProperty = 查询结果给那个属性赋值
+
+      场景6: 列名与实体类属性不一致
+            1. 别名 select t_id tId,t_name tName from teacher where t_id = #{tId}
+            2. 开启驼峰映射<setting name="mapUnderscoreToCamelCase" value="true"/>  emp_name -> empName
+            3. resultMap 自定义映射（resultMap 和resultType 二选一）
+                 resultType按照规则自动映射 按照是否开启驼峰映射,自己映射属性和列名,只能映射一层结构
+                 深层次的对象结构无法映射,多表查询时无法映射
+
+                 声明resultMap标签,自己定义映射规则
+                 <resultMap id="teacherMap" type="teacher">
+                    <id column="t_id" property="tId"/>
+                    <result column="t_name" property="tName"/>
+                </resultMap>
+
+                 id: resultMap = "标识"
+                 type: 具体返回值类型, 全限定符 | 别名 | 集合泛型
+                     <id> -> 主键映射关系
+                     <result> -> 普通列映射关系
+                        column: 数据库列名
+                        property: 实体类属性
+
+
+
+
+    -->
+
+    <resultMap id="teacherMap" type="teacher">
+        <id column="t_id" property="tId"/>
+        <result column="t_name" property="tName"/>
+    </resultMap>
+
+    <select id="getNameById" resultType="string">
+        select emp_name empName from t_emp where emp_id = #{empId}
+    </select>
+
+    <select id="getSalaryById" resultType="_double">
+        select emp_salary empSalary from t_emp where emp_id = #{empId}
+    </select>
+
+    <select id="queryById" resultType="employee">
+        select emp_id empId,emp_name empName, emp_salary empSalary from
+        t_emp where emp_id = #{empId}
+    </select>
+
+    <select id="selectEmpNameAndMaxSalary" resultType="map">
+        SELECT
+            emp_name 员工姓名,
+            emp_salary 员工工资,
+            (SELECT AVG(emp_salary) FROM t_emp) 部门平均工资
+        FROM t_emp WHERE emp_salary=(
+            SELECT MAX(emp_salary) FROM t_emp
+    </select>
+
+
+    <select id="queryNamesBySalary" resultType="list">
+        select emp_name from t_emp where emp_salary > #{salary}
+    </select>
+
+    <insert id="insertEmp" useGeneratedKeys="true"  keyColumn="emp_id" keyProperty="empId" >
+        insert into t_emp(emp_name,emp_salary) values (#{empName},#{empSalary})
+    </insert>
+
+
+    <delete id="delteById" >
+        delete from t_emp where emp_id = #{empId}
+    </delete>
+
+</mapper>

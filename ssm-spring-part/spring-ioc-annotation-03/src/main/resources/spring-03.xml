@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!-- 基于xml
+         1. ioc容器配置 ioc
+         2. di配置 xml方式要求必须有set方法
+     -->
+    <!-- service -->
+<!--    <bean id="userService" class="com.shiguang.ioc_03.UserServiceImpl"/>-->
+<!--    &lt;!&ndash; controller di service &ndash;&gt;-->
+<!--    <bean id="userController" class="com.shiguang.ioc_03.UserController">-->
+<!--        <property name="userService" ref="userService"/>-->
+<!--    </bean>-->
+
+
+    <!-- 基于注解
+         1. ioc配置 组件类添加ioc注解,例如 @Controller
+         2. xml 配置扫描扫描包路径
+    -->
+
+    <context:component-scan base-package="com.shiguang.ioc_03"/>
+
+
+
+</beans>

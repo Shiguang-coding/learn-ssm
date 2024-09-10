@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="com.shiguang"/>
+
+    <aop:config>
+        <!-- 声明切点标签 -->
+        <!-- @Point() -->
+        <aop:pointcut id="pointcut" expression="execution(* com..*.*(..))"/>
+
+        <!-- 切面配置标签
+             @Aspect
+              ref = 增强对象 order = 切面优先级 值越小优先级越高,在外围
+        -->
+
+        <aop:aspect ref="txAdvice" order="10">
+            <!-- @Before("pointcut()") -->
+            <aop:before method="begin" pointcut-ref="pointcut"/>
+            <!-- @AfterReturning(value = "...",returning = "result") -->
+            <aop:after-returning method="commit" pointcut="execution(* com..impl.*.*(..))" returning="result"/>
+            <!-- @AfterThrowing(value = "pointcut()",throwing = "e") -->
+            <aop:after-throwing method="rollback" pointcut-ref="pointcut" throwing="e"/>
+        </aop:aspect>
+
+
+    </aop:config>
+</beans>

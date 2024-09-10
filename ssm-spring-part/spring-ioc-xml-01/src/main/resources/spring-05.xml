@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--
+        id: getObject 方法返回的对象的标识
+            工厂Bean的标识: &id
+        class: factoryBean 标准化工厂类
+    -->
+    <bean id="javaBean" class="com.shiguang.ioc_05.JavaBeanFactoryBean">
+        <!-- 此位置的属性: javaBean工厂类配置,并非 getObjet方法 -->
+        <property name="value" value="张三"/>
+    </bean>
+</beans>

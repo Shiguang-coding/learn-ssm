@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <beans>
+        <!-- 引用和被引用的组件必须全部在ioc容器中 -->
+
+        <!-- Spring容器是一个高级容器,内容会有缓存动作
+                1、会先创建对象(ioc)
+                2、再进行属性赋值
+             所以声明bean时无需要做引用顺序
+        -->
+
+        <!-- 1、单个构造参数注入 -->
+
+        <!-- 引用类bean声明 -->
+        <bean id="userService" class="com.shiguang.ioc_02.UserService">
+            <!-- 构造参数传值 di 配置 -->
+
+            <!--
+            <constructor-arg
+                value = 直接属性值 (String name = "张三", int age = 18,...)
+                ref = 引用其他bean的id值
+            />
+            -->
+
+            <!-- 构造函数引用 -->
+            <constructor-arg ref="userDao"/>
+        </bean>
+
+
+
+        <!-- 2、多个构造参数注入 -->
+        <!-- 方案一:按照构造参数的顺序填写 value 直接赋值, ref 引用其他的bean id -->
+        <bean id="userService1" class="com.shiguang.ioc_02.UserService">
+            <constructor-arg value="18"/>
+            <constructor-arg value="张三"/>
+            <constructor-arg ref="userDao"/>
+        </bean>
+
+        <!-- 方案二（推荐）:按照构造参数的名称填写,不用考虑顺序, name =  构造参数属性值 -->
+        <bean id="userService1" class="com.shiguang.ioc_02.UserService">
+            <constructor-arg name="name" value="张三"/>
+            <constructor-arg name="age" value="18"/>
+            <constructor-arg name="userDao" ref="userDao"/>
+        </bean>
+
+        <!-- 方案三（推荐）:按照构造参数的下标填写,不用考虑顺序, index =  下标,从左往右,下标从0开始 -->
+        <bean id="userService1" class="com.shiguang.ioc_02.UserService">
+            <constructor-arg index="1" value="张三"/>
+            <constructor-arg index="0" value="18"/>
+            <constructor-arg index="2" ref="userDao"/>
+        </bean>
+
+
+        <!-- 被引用类bean声明 -->
+        <bean id="userDao" class="com.shiguang.ioc_02.UserDao"/>
+
+
+
+        <!-- 3、触发setter方法进行注入 -->
+        <bean id="movieFinder" class="com.shiguang.ioc_02.MovieFinder"/>
+        <bean id="simpleMovieLister" class="com.shiguang.ioc_02.SimpleMovieLister">
+            <!-- name: 调用set方法的名,即setter方法去掉set首字母小写后的值
+                       例如: setMovieFinder去除set是MovieFinder,再首字母小写后是movieFinder
+                       所以name的值与属性名不一定相同
+            -->
+            <!-- value 和 ref 二选一 -->
+            <property name="movieName" value="時光"/>
+            <property name="movieFinder" ref="movieFinder" />
+        </bean>
+
+
+
+    </beans>
+</beans>

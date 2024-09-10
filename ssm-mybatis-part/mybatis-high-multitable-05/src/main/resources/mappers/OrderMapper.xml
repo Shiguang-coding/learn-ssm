@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiguang.mapper.OrderMapper">
+
+    <!-- 创建resultMap实现“对一”关联关系映射 -->
+    <!-- id属性：通常设置为这个resultMap所服务的那条SQL语句的id加上“ResultMap” -->
+    <!-- type属性：要设置为这个resultMap所服务的那条SQL语句最终要返回的类型 -->
+    <resultMap id="selectOrderWithCustomerResultMap" type="order">
+
+        <!-- 先设置Order自身属性和字段的对应关系 -->
+        <id column="order_id" property="orderId"/>
+
+        <result column="order_name" property="orderName"/>
+<!--        <result column="custom_id" property="customerId"/>-->
+
+        <!-- 使用association标签配置“对一”关联关系 -->
+        <!-- property属性：在Order类中对一的一端进行引用时使用的属性名 -->
+        <!-- javaType属性：一的一端类的全类名 -->
+        <association property="customer" javaType="customer">
+
+            <!-- 配置Customer类的属性和字段名之间的对应关系 -->
+            <id column="customer_id" property="customerId"/>
+            <result column="customer_name" property="customerName"/>
+
+        </association>
+
+    </resultMap>
+
+    <!-- Order selectOrderWithCustomer(Integer orderId); -->
+    <select id="selectOrderWithCustomer" resultMap="selectOrderWithCustomerResultMap">
+
+        SELECT order_id,order_name,c.customer_id,customer_name
+        FROM t_order o
+                 LEFT JOIN t_customer c
+                           ON o.customer_id=c.customer_id
+        WHERE o.order_id=#{orderId}
+
+    </select>
+
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 通过bean标签声明的组件只是组件的信息即ioc的配置,只要被applicationContext读取后才会实例化对象 -->
+    <bean id = "happyComponent" class="com.shiguang.ioc_03.HappyComponent"/>
+
+
+    <bean id = "myComponent" class="com.shiguang.ioc_03.MyComponent"/>
+
+
+
+</beans>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiguang.mapper.EmployeeMapper">
+
+
+    <!--
+        #{key}: 占位符 + 赋值 emp_id = ?  ? = 赋值
+        ${key}: 字符串拼接 “emp_id =” + id
+        推荐使用 #{key} 可以防止sql注入,
+        #{key} 只能代替值的位置,不能代替 容器名（标签,列名,sql关键字） emp_id = ? ,不能写 ? = id
+        ${key} 应用场景: 列名是动态的, ${columnName} = 动态的值 #{columnValue}
+        总结: 1. 动态值用 #{key}
+             2. 动态列名,容器名,关键字等用 ${key}
+    -->
+
+    <!--
+        场景1: 传入单个简单类型 key 随便
+    -->
+    <select id="queryById" resultType="com.shiguang.pojo.Employee" >
+        select emp_id empId,emp_name empName,emp_salary empSalary from t_emp where emp_id = #{zhangsan}
+    </select>
+
+    <select id="queryBySalary" resultType="com.shiguang.pojo.Employee">
+        select emp_id empId,emp_name empName,emp_salary empSalary from t_emp where emp_salary = #{lisi}
+    </select>
+
+    <delete id="deleteById">
+        delete from t_emp where emp_id  = #{empId}
+    </delete>
+
+
+    <!--
+     场景2: 传入实体对象 key = 属性名
+    -->
+    <insert id="insertEmp" parameterType="com.shiguang.pojo.Employee">
+    insert into t_emp(emp_name,emp_salary) values (#{empName},#{empSalary});
+    </insert>
+
+
+    <!--
+     场景3: 传入多个简单数据类型  key = 属性名
+           方案一: 注解指定 @Param 指定简单参数的key, key = @Param("value值")
+           方案二: mybatis默认机制
+                  arg0,arg1,... 形参从左到右 (emp_name,emp_salary,...) -> (arg0,arg1,...)
+                  param1,param2,... 形参从左到右 (emp_name,emp_salary,...) -> (param1,param2,...)
+    -->
+    <select id="queryByNameAndSalary" resultType="com.shiguang.pojo.Employee">
+        select emp_id empId,emp_name empName,emp_salary empSalary from t_emp
+        where emp_name = #{empName}  and emp_salary = #{empSalary}
+    </select>
+
+
+    <!--
+    场景4: 传入Map
+          key = Map的key
+    -->
+    <insert id="insertEmpFromMap" parameterType="com.shiguang.pojo.Employee">
+        insert into t_emp(emp_name,emp_salary) values (#{empName},#{empSalary});
+    </insert>
+
+</mapper>
