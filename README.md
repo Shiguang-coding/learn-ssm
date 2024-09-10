@@ -21,11 +21,11 @@
 
 5. [【尚硅谷】框架实战：SSM 整合原理和实战](https://blog.shiguang666.eu.org/2024/09/08/676c834f4f8d/)
 
-6. [【尚硅谷】快速启动框架：SpringBoot3 实战](https://blog.shiguang666.eu.org/2024/09/09/cdb22954c30f/)
+6. [【尚硅谷】快速启动框架：SpringBoot3 实战](https://blog.shiguang666.eu.org/2024/09/09/28a6f86cb61a/)
 
-7. [【尚硅谷】MyBatis-Plus 高级用法：最优化持久层开发](https://blog.shiguang666.eu.org/2024/09/09/bf720641f58a/)
+7. [【尚硅谷】MyBatis-Plus 高级用法：最优化持久层开发](https://blog.shiguang666.eu.org/2024/09/09/7755abe64567/)
 
-8. [【尚硅谷】终极实战：SpringBoot 版微头条实战](https://blog.shiguang666.eu.org/2024/09/10/83432cb70b43/)
+8. [【尚硅谷】终极实战：SpringBoot 版微头条实战](https://blog.shiguang666.eu.org/2024/09/10/e2c85322eace/)
 
 
 
